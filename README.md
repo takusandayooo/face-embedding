@@ -32,10 +32,12 @@ python train.py
 
 ### 3. 判定
 1. optのディレクトリ内に`model.pickle`が作成されていることを確認
-2. 判定する写真ファイル名を記述[`main.py`](./opt/main.py)を実行  
-今回は0,1のclassになっています。
+2.[`main.py`](./opt/main.py)を実行
+   0,1のclassになっています。
+   ※関数の呼び出しのところで判定する写真ファイル名を記述してください
 
 
 ## 参考URL
 [【超初心者向け】DockerでPythonの環境を構築する](https://qiita.com/_taketeru/items/1d547e95539d858b29a1)  
+
 [FaceNetの顔認証をお手軽に試す](https://qiita.com/Takuya-Shuto-engineer/items/4dcbadbd16e16c3b1677)
