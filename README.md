@@ -32,8 +32,8 @@ python train.py
 
 ### 3. 判定
 1. optのディレクトリ内に`model.pickle`が作成されていることを確認
-2.[`main.py`](./opt/main.py)を実行
-   0,1のclassになっています。
+2. [`main.py`](./opt/main.py)を実行
+   0,1のclassになっています。  
    ※関数の呼び出しのところで判定する写真ファイル名を記述してください
 
 
