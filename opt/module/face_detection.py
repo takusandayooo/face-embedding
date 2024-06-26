@@ -1,31 +1,34 @@
 import cv2
 
 def detect_faces(image_path):
-    # 顔検出のためのカスケード分類器をロード
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
     # 画像を読み込み、グレースケールに変換
     img = cv2.imread(image_path)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # 顔を検出
-    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    face_detector = cv2.FaceDetectorYN_create("yunet_n_320_320.onnx", "", (320, 320), 0.6, 0.3, 5000, cv2.dnn.DNN_BACKEND_DEFAULT, target_id=cv2.dnn.DNN_TARGET_CPU)
 
+    # 画像サイズを設定する
+    face_detector.setInputSize((img.shape[1], img.shape[0]))
+
+    # 顔検出
+    _, faces = face_detector.detect(img)
     # 検出された顔の画像をリストに格納
     face_images = []
-    for (x, y, w, h) in faces:
+    if faces is None or len(faces) == 0:
+        return False
+    for face in faces:
+        x, y, w, h = face[0:4]
+        x, y, w, h = int(x), int(y), int(w), int(h)
         face_img = img[y:y+h, x:x+w]
         face_images.append(face_img)
-
-    if len(face_images) == 0:
-        return False
-
     return face_images
+
 if __name__ == "__main__":
     # 画像のパスを指定して顔検出を実行
-    faces = detect_faces('./01.jpg')
+    faces = detect_faces('./AKB48.jpg')
     if faces:
-        cv2.imwrite('face.jpg', faces[0])
+        for i, face in enumerate(faces):
+            cv2.imwrite(f'face_{i}.jpg', face)
         print("Faces detected!")
     else:
         print("No faces detected.")
