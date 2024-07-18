@@ -1,6 +1,6 @@
 import cv2
 
-def detect_faces(image_path):
+def detect_faces(image_path, padding=0):
     # 画像を読み込み、グレースケールに変換
     img = cv2.imread(image_path)
 
@@ -19,6 +19,11 @@ def detect_faces(image_path):
     for face in faces:
         x, y, w, h = face[0:4]
         x, y, w, h = int(x), int(y), int(w), int(h)
+        # 余白を追加
+        x = max(0, x - padding)
+        y = max(0, y - padding)
+        w = min(img.shape[1] - x, w + 2 * padding)
+        h = min(img.shape[0] - y, h + 2 * padding)
         face_img = img[y:y+h, x:x+w]
         face_images.append(face_img)
     return face_images

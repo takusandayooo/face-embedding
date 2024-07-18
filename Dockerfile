@@ -24,3 +24,4 @@ RUN cd opt && wget https://raw.githubusercontent.com/opencv/opencv/master/data/h
 RUN pip install mira keras-facenet
 RUN pip install tensorflow
 RUN pip install pyautogui
+RUN pip install tf-explain
