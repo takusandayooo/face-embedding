@@ -2,7 +2,7 @@ import module.face_detection as face_detection
 import module.face_embedding as face_embedding
 import os
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 import pickle
 
@@ -45,7 +45,7 @@ def train_main():
     x_train, x_test, y_train, y_test = train_test_split(face_vectors, face_cute_or_normal_txt, test_size = 0.2, train_size = 0.8, shuffle = True)   
     print("train length = ", len(x_train), "test length = ", len(x_test))
 
-    model_svc=SVC()
+    model_svc=LinearSVC()
     model_svc.fit(x_train,y_train)
 
     y_pred = model_svc.predict(x_test)
